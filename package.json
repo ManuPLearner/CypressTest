@@ -1,15 +1,13 @@
 {
-  "dependencies": {
-    "cypress": "^9.7.0"
-  },
   "name": "cypressautomation",
   "version": "1.0.0",
   "main": "index.js",
   "devDependencies": {
-    "@types/fs-extra": "^9.0.13"
+    "@types/fs-extra": "^9.0.13",
+    "cypress": "^13.8.0"
   },
   "scripts": {
-    "RegressionTest": "npx cypress run --config pageLoadTimeout=100000 --spec 'cypress/integration/3-own-work/FirstTest.js' --headed",
+    "RegressionTest": "npx cypress run --config pageLoadTimeout=100000 --spec 'cypress/e2e/First.cy.js' --headed",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Manu Parameshwarappa",
