@@ -15,10 +15,11 @@ phases:
       - export COMMIT_INFO_AUTHOR="$(git log -1 --pretty=%an)"
       - export COMMIT_INFO_SHA="$(git log -1 --pretty=%H)"
       - export COMMIT_INFO_REMOTE="$(git config --get remote.origin.url)"
+      - unset NODE_OPTIONS
       - npm install
-      - yarn install
-      - yarn cypress install
-      - yarn cypress run
+      - npx cypress cache clear
+      - npm install cypress --save-dev
+      - npx cypress install
   pre_build:
     commands:
       - yarn run cy:verify
