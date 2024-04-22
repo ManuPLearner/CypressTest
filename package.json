@@ -8,9 +8,11 @@
   },
   "scripts": {
     "RegressionTest": "npx cypress run --config pageLoadTimeout=100000 --spec 'cypress/e2e/First.cy.js' --headed",
-    "test": "echo \"Error: no test specified\" && exit 1",
     "cy:verify": "cypress verify",
-    "cy:info": "cypress info"
+    "cy:info": "cypress info",
+    "start": "my-server -p 3030",
+    "cy:run": "cypress run",
+    "test": "start-server-and-test start http://localhost:3030 RegressionTest"
   },
   "author": "Manu Parameshwarappa",
   "license": "ISC",

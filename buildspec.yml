@@ -16,11 +16,13 @@ phases:
       - export COMMIT_INFO_SHA="$(git log -1 --pretty=%H)"
       - export COMMIT_INFO_REMOTE="$(git config --get remote.origin.url)"
       - npm install
-      - npx cypress install --force
+      - yarn install
+      - yarn cypress install
+      - yarn cypress run
   pre_build:
     commands:
-      - npm run cy:verify
-      - npm run cy:info
+      - yarn run cy:verify
+      - yarn run cy:info
   build:
     commands:
-      - CYPRESS_CACHE_FOLDER=./tmp/Cypress npx cypress run RegressionTest
+      - npx cypress run RegressionTest
