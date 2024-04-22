@@ -15,12 +15,12 @@ phases:
       - export COMMIT_INFO_AUTHOR="$(git log -1 --pretty=%an)"
       - export COMMIT_INFO_SHA="$(git log -1 --pretty=%H)"
       - export COMMIT_INFO_REMOTE="$(git config --get remote.origin.url)"
+      - npm install
+      - npx cypress install --force
   pre_build:
     commands:
-      - CYPRESS_CACHE_FOLDER=./tmp/Cypress npm install
-      - CYPRESS_CACHE_FOLDER=./tmp/Cypress npm install cypress --save-dev
-      - CYPRESS_CACHE_FOLDER=./tmp/Cypress npm run cy:verify
-      - CYPRESS_CACHE_FOLDER=./tmp/Cypress npm run cy:info
+      - npm run cy:verify
+      - npm run cy:info
   build:
     commands:
       - CYPRESS_CACHE_FOLDER=./tmp/Cypress npx cypress run RegressionTest
