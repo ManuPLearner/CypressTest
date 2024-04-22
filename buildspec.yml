@@ -19,8 +19,8 @@ phases:
       - npm install cypress --save-dev
   pre_build:
     commands:
-      - npm run cy:verify
-      - npm run cy:info
+      #- npm run cy:verify
+      #- npm run cy:info
   build:
     commands:
       - npx cypress run RegressionTest
