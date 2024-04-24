@@ -18,6 +18,7 @@ phases:
       - unset NODE_OPTIONS
       - npm ci
       - npm install
+      - brew install curl
       - sudo dnf install -y xorg-x11-server-Xvfb gtk3-devel nss alsa-lib
       - npx cypress cache clear
       - npm install cypress --save-dev
@@ -29,3 +30,6 @@ phases:
   build:
     commands:
       - npx cypress run RegressionTest
+  post_build:
+    commands:
+      - curl -H "Content-Type: application/json" -d "{\"@type\": \"MessageCard\", \"@context\": \"http://schema.org/extensions\", \"themeColor\": \"0076D7\", \"summary\": \"Cypress Report\", \"sections\": [{ \"activityTitle\": \"Cypress Test Report\", \"activitySubtitle\": \"Click the link to view the report\", \"markdown\": true, \"text\": \"[View Report]("/codebuild/output/src1370661015/src/github.com/ManuPLearner/CypressTest/cypress/reports/html/index.html")\" }]}" https://trten.webhook.office.com/webhookb2/3f1b44c3-4d27-4402-8ead-2d44c908016c@62ccb864-6a1a-4b5d-8e1c-397dec1a8258/IncomingWebhook/35d5c5ad49da4d508dd0dc6dd8d5035a/d6b171c3-3a89-4b7e-9a5b-5aa78c12f95b
