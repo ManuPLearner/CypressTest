@@ -21,6 +21,7 @@ phases:
       - sudo dnf install -y xorg-x11-server-Xvfb gtk3-devel nss alsa-lib
       - npx cypress cache clear
       - npm install cypress --save-dev
+      - npm i --save-dev cypress-mochawesome-reporter
   pre_build:
     commands:
       - npm run cy:verify
