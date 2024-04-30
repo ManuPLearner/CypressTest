@@ -31,3 +31,28 @@ phases:
       - npx cypress run RegressionTest
   post_build:
     commands:
+      # Commands to run after the build
+      - echo Preparing the Cypress report for upload...
+      # Find the Cypress HTML report. Adjust the path as needed.
+      - html_report=$(find . -name '*.html' | head -n 1)
+      - if [ -z "$html_report" ]; then echo "Report not found." && exit 1; fi
+      # Assuming you want to store the report in an S3 bucket
+      - aws s3 cp $html_report s3://awscypresstests3/CypressHTMLReport/
+
+      # First, download the HTML file from S3 to your local machine
+      - aws s3 cp s3://awscypresstests3/CypressHTMLReport/index.html ./index.html
+
+      # Next, read the content of the file into a variable
+      # Note: This will not parse HTML; it will treat it as plain text
+      - HTML_CONTENT=$(<index.html)
+
+      # Now, format your JSON payload. You may need to escape certain characters.
+      - JSON_PAYLOAD=$( jq -n --arg content "$HTML_CONTENT" '{"text": $content}' )
+
+      # Finally, use the `curl` command to send the JSON payload to the Teams channel
+      - curl -H "Content-Type: application/json" -d "$JSON_PAYLOAD" https://trten.webhook.office.com/webhookb2/3f1b44c3-4d27-4402-8ead-2d44c908016c@62ccb864-6a1a-4b5d-8e1c-397dec1a8258/IncomingWebhook/35d5c5ad49da4d508dd0dc6dd8d5035a/d6b171c3-3a89-4b7e-9a5b-5aa78c12f95b
+
+    artifacts:
+      # Define the artifacts to be output by the build
+    files:
+      - '**/*.html'

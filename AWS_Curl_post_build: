@@ -1,0 +1,18 @@
+post_build:
+21        commands:
+22          - echo Build completed on `date`
+23          - echo Preparing to send test results to Microsoft Teams...
+24          # Replace 'my_test_results.json' with the actual test results file.
+25          # Generate a message payload for Microsoft Teams.
+26          - MESSAGE_PAYLOAD=$( jq -n --arg content "$(cat my_test_results.json)" '{text: $content}' )
+27          # Use curl to send the message payload to the Microsoft Teams webhook URL.
+28          # Replace 'YOUR_WEBHOOK_URL' with your actual webhook URL.
+29          - curl -H "Content-Type: application/json" -d "$MESSAGE_PAYLOAD" YOUR_WEBHOOK
+
+
+
+curl -H "Content-Type: application/json" -d "{\"@type\": \"MessageCard\", \"@context\": \"http://schema.org/extensions\", \"themeColor\": \"0076D7\", \"summary\": \"Cypress Report\", \"sections\": [{ \"activityTitle\": \"Cypress Test Report\", \"activitySubtitle\": \"Click the link to view the report\", \"markdown\": true, \"text\": \"[View Report]("https://www.google.com")\" }]}" https://trten.webhook.office.com/webhookb2/3f1b44c3-4d27-4402-8ead-2d44c908016c@62ccb864-6a1a-4b5d-8e1c-397dec1a8258/IncomingWebhook/35d5c5ad49da4d508dd0dc6dd8d5035a/d6b171c3-3a89-4b7e-9a5b-5aa78c12f95b
+
+
+curl -H "Content-Type: application/json" -d "{\"@type\": \"MessageCard\", \"@context\": \"http://schema.org/extensions\", \"themeColor\": \"0076D7\", \"summary\": \"Cypress Report\", \"sections\": [{ \"activityTitle\": \"Cypress Test Report\", \"activitySubtitle\": \"Click the link to view the report\", \"markdown\": true, \"text\": \"[View Report]("/codebuild/output/src1370661015/src/github.com/ManuPLearner/CypressTest/cypress/reports/html/index.html")\" }]}" https://trten.webhook.office.com/webhookb2/3f1b44c3-4d27-4402-8ead-2d44c908016c@62ccb864-6a1a-4b5d-8e1c-397dec1a8258/IncomingWebhook/35d5c5ad49da4d508dd0dc6dd8d5035a/d6b171c3-3a89-4b7e-9a5b-5aa78c12f95b
+
