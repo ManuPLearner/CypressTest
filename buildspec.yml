@@ -36,4 +36,9 @@ phases:
 
       # Assuming you want to store the report in an S3 bucket
       - aws s3 cp $html_report s3://awscypresstests3/CypressHTMLReport/html/index.html
-      
+      # This is where you would copy the file to S3
+      - aws s3 cp my-cypress-report.html s3://awscypresstests3/CypressHTMLReport
+
+artifacts:
+  files:
+    - my-cypress-report.html
