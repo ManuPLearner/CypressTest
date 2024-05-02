@@ -29,4 +29,11 @@ phases:
   build:
     commands:
       - npx cypress run RegressionTest
-  
+  post_build:
+    commands:
+      # Commands to run after the build
+      - echo Preparing the Cypress report for upload...
+
+      # Assuming you want to store the report in an S3 bucket
+      - aws s3 cp $html_report s3://awscypresstests3/CypressHTMLReport/html/index.html
+      
