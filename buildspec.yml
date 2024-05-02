@@ -39,8 +39,6 @@ phases:
       - HTML_REPORT_PATH=$(find . -type f -name 'index.html')
       - echo "Report path is $HTML_REPORT_PATH"
   
-  artifacts:
-    files:
-      - '**/*'
-    discard-paths: no
-    base-directory: build
+artifacts:
+  files:
+    - '**/*'
