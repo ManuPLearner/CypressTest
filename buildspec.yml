@@ -33,10 +33,14 @@ phases:
     commands:
       # Commands to run after the build
       - echo Preparing the Cypress report for upload...
-      
+
+      - HTML_REPORT_PATH=$(find . -type f -name 'index.html')
+      - echo "Report path is $HTML_REPORT_PATH"
+
       # This is where you would copy the file to S3
-      - aws s3 cp my-cypress-report.html s3://awscypresstests3/CypressHTMLReport
+      - aws s3 cp $HTML_REPORT_PATH s3://awscypresstests3/CypressHTMLReport
+      - echo "Copied Report to s3 bucket
 
 artifacts:
   files:
-    - my-cypress-report.html
+    - $HTML_REPORT_PATH
