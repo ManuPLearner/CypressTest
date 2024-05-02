@@ -40,6 +40,6 @@ phases:
       - echo "Report path is $HTML_REPORT_PATH"
   
   artifacts:
-  files:
-    - '**/*'
-    name: CypressReport
+    files:
+      - '**/*'
+      name: CypressReport
