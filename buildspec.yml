@@ -38,10 +38,8 @@ phases:
 
       - HTML_REPORT_PATH=$(find . -type f -name 'index.html')
       - echo "Report path is $HTML_REPORT_PATH"
-
+      
       - sh
-      - aws s3 cp cypress/reports/html s3://awscypresstests3/CypressHTMLReport/ --recursive
+      - zip -r report.zip cypress/reports/html
+      - aws s3 cp report.zip s3://awscypresstests3/CypressHTMLReport/ --recursive
   
-artifacts:
-  files:
-    - cypress/reports/html/*
